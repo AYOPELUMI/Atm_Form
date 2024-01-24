@@ -3,10 +3,8 @@ import { Card } from "./assets/Card"
 import './AtmForm.css'
 import {Form} from "./assets/Form"
 import {Input} from "./assets/Input"
-
+import toast, { Toaster } from 'react-hot-toast'
 const inputPlaceHolder = ['0123','4567','8901','2345']
-
-
 
 export function AtmForm() {
 	const [name, setName] = useState('');
@@ -30,19 +28,21 @@ export function AtmForm() {
 	const cardNumberRef2 = useRef(null)
 	const cardNumberRef3 = useRef(null)
 	let cardNumberRefArray = [cardNumberRef0,cardNumberRef1,cardNumberRef2,cardNumberRef3]
-	const [expiryMonthValid, setExpiryMonthValid] = useState(true)
+	const [expiryMonthValid, setExpiryMonthValid] = useState(false)
 	
+		
+
 	const CardNumberInput = () => {
 		const CardNumberArray = []
 		for (var i = 0; i < 4; i++) {
-				 const inputProps = {
-			 	 value: cardNumberInputs[i],
-			 	 onChange:changeNumber
+			const inputProps = {
+			 	value: cardNumberInputs[i],
+			 	onChange:changeNumber
 			 } 
 			 
 		const CardInputElement = (
 			<span className='containerCardNumber' key={i} index={i} >
-			<Input type="text" ref={cardNumberRefArray[i]} {...inputProps} index={i}  className='cardNumber atmFormInput' maxLength='4' inputMode="numeric" placeholder={inputPlaceHolder[i]} />
+			<Input type="text" ref={cardNumberRefArray[i]} {...inputProps} index={i}  className='cardNumber atmFormInput' maxLength='4' inputMode="numeric" placeholder={inputPlaceHolder[i]} required />
 			</span>
 			)
 			CardNumberArray.push(CardInputElement);
@@ -59,16 +59,12 @@ export function AtmForm() {
 	const changeNumber = (event) =>{
 		let Index = Number(event.target.getAttribute('index'))
 		const number = event.target.value
-		console.log({number})
+	
 		const clone = Array.from(cardNumberInputs)
 		const cloneisValid = Array.from(cardNumberInputValid)
-		// clone[Index] = number
-		console.log({clone})
-
 		const valueNumber = Number(number)
-		console.log({valueNumber})
+	
 		if (number.length > 0 && valueNumber){
-			console.log("hello")
 			if (!isNaN(number)) {
 				cloneisValid[Index] = true
 				setCardNumberInputValid(cloneisValid)
@@ -82,22 +78,22 @@ export function AtmForm() {
 			cloneisValid[Index] = false
 			setCardNumberInputValid(cloneisValid)
 		}
-		console.log(number.length)
-		if (valueNumber.length == '4' && Index!=3){
-			console.log("i am here")
+		if (valueNumber.toString().length == '4' && Index!=3){
 			cardNumberRefArray[Index+1].current.focus()
-			// cardArray[Index +1].ref
-			console.log(cardNumberRefArray[Index+1].current)
-			// cardNumberRefs.current[Index].current.focus()
 		}
 	}
 
 
 const changeExpiryMonth = (event) =>{
 	const value = event.target.value
+
 	const numberValue = Number(value)
 
-	if (numberValue || value == 0){
+	if((value=="" || value ==" ") && (value.length == 1 || value.length == 0)){
+		setExpiryMthValue("")
+		setExpiryMonthValid(false)
+	}
+	else if (numberValue || value == 0){
 		if(numberValue <=12 && !isNaN(value) ){
 			setExpiryMthValue(numberValue)
 			setExpiryMonthValid(false)
@@ -106,21 +102,17 @@ const changeExpiryMonth = (event) =>{
 			setExpiryMonthValid(true)
 		}
 	}
-	if(value=="" && value.length ==0){
-		setExpiryMthValue("")
-		setExpiryMonthValid(false)
-	}
 }
 
 const changeExpiryYear = () => {
 	const value = event.target.value
 	const valueNumber = Number(value)
 
-	if ((value.length > 0 && valueNumber ) || value == 0){
-		set_Exp_Yr_Value(valueNumber)
-	}
-	if(value=="" && value.length ==0){
+	if((value=="" || value==" ") && (value.length ==0 || value.length == 1)){
 		set_Exp_Yr_Value("")
+	}
+	else if ((value.length > 0 && valueNumber ) || value == 0){
+		set_Exp_Yr_Value(valueNumber)
 	}
 }
 
@@ -134,12 +126,14 @@ const changeCvc = (event) =>{
 		setCvc("")
 	}
 }
-const handleCvcBlur =() => {
-	setFlipToBack(false)
+const onSubmit = () => {
+	event.preventDefault()
+	toast.success("atm details updated successfully")
 }
 	
 	return (
 		<div className='body'>
+			<Toaster />
 			<div className="mainContainer">
 			<aside className="leftSide">
 				<Card 
@@ -154,6 +148,7 @@ const handleCvcBlur =() => {
 			<aside className="rightSide">
 				<div className="container">
 					<Form 
+						onSubmit ={onSubmit}
 						changeName = {changeName}
 						name = {name}
 						CardNumberInput = {CardNumberInput}
@@ -163,7 +158,6 @@ const handleCvcBlur =() => {
 						changeExpiryYear = {changeExpiryYear}
 						changeExpiryMonth = {changeExpiryMonth}
 						expiryMonthValid={expiryMonthValid}
-						handleCvcBlur ={handleCvcBlur}
 						cvc = {cvc}
 						changeCvc= {changeCvc}
 					/> 
