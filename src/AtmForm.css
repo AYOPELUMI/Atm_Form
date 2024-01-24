@@ -185,6 +185,7 @@
 		text-align: left;
 		background: #fff;
 		transition: border 0.4s ease; 
+		color: #000;
 	}
 	.atmFormInput:focus{
 		border: 2px solid #7d7979;

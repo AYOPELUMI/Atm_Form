@@ -39,11 +39,11 @@ export function Form(props){
 					EXP. DATE(MM/YY)
 					</h4>
 					<span className='span'>
-				 		<Input type="text" placeholder="MM" maxLength="2" className="expiryMonth atmFormInput" value={expiryMthvalue} onChange={changeExpiryMonth}  required/>
+				 		<Input type="text" placeholder="MM" maxLength="2" className="expiryMonth atmFormInput" value={expiryMthvalue} onChange={changeExpiryMonth}  required inputMode="numeric"/>
 				 	</span>
 				 		<p>{expiryMonthValid == true ? "not more than 12" : null}</p>
 				 	<span className='span'>
-			 			<Input type="text"  placeholder="YY" maxLength="2" className="expiryYear atmFormInput" value={expiryYrValue}  onChange={changeExpiryYear} required />
+			 			<Input type="text"  placeholder="YY" maxLength="2" className="expiryYear atmFormInput" value={expiryYrValue}  onChange={changeExpiryYear} required inputMode="numeric"/>
 				 	</span>
 				</label>
 			
@@ -51,7 +51,7 @@ export function Form(props){
 					<h4>
 						CVC
 					</h4>
-					<Input type="text" placeholder="e.g 123" className="cvcclassName atmFormInput" maxLength="3" value={cvc} onChange={changeCvc} />
+					<Input type="text" placeholder="e.g 123" className="cvcclassName atmFormInput" maxLength="3" value={cvc} onChange={changeCvc} inputMode="numeric" />
 				</label>
 			</div>
 			<button className="submit" type="submit">Confirm</button>
