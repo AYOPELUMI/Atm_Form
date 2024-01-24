@@ -9,7 +9,7 @@ export function Card(props) {
 			expiryYrValue,
 			name,
 			cvc,
-			flipToBack
+			cvcFlip
 		} = props;
 
 		const DisplayCardNumber= () => {
@@ -26,7 +26,7 @@ export function Card(props) {
 	return (
 		<div className ="containerAtm">
 			<div className="atmContainer" style={{
-						transform: cvc ? "rotateY(-180deg)" : undefined
+						transform: cvcFlip  ? "rotateY(-180deg)" : undefined
 					}}>
 					<div className="atmFrontSide atm">
 						<div>

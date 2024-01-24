@@ -29,7 +29,7 @@ export function AtmForm() {
 	const cardNumberRef3 = useRef(null)
 	let cardNumberRefArray = [cardNumberRef0,cardNumberRef1,cardNumberRef2,cardNumberRef3]
 	const [expiryMonthValid, setExpiryMonthValid] = useState(false)
-	
+	const [cvcFlip, setCvcFlip] = useState(false)	
 		
 
 	const CardNumberInput = () => {
@@ -117,13 +117,16 @@ const changeExpiryYear = () => {
 }
 
 const changeCvc = (event) =>{
+	setCvcFlip(true)
 	const value = event.target.value
 	const valueNumber = Number(value)
 	if (value.length > 0 && !isNaN(value) && valueNumber) {
 		 setCvc(valueNumber)
+		 setCvcFlip(false)
 	}
 	if(value=="" && value.length ==0){
 		setCvc("")
+		setCvcFlip(false)
 	}
 }
 const onSubmit = () => {
@@ -142,6 +145,7 @@ const onSubmit = () => {
 					expiryYrValue={expiryYrValue}
 					name={name}
 					cvc={cvc}
+					cvcFlip={cvcFlip}
 				/>	
 			</aside>	
 
