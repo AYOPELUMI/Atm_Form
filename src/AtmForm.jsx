@@ -63,27 +63,16 @@ export function AtmForm() {
 		const clone = Array.from(cardNumberInputs)
 		const cloneisValid = Array.from(cardNumberInputValid)
 		const valueNumber = Number(number)
-		
-		console.log({number})
-		console.log(number.length)
+		const regExp = /^\d+$/
 
-		if (number.length > 0 && valueNumber){
-			if (!isNaN(number)) {
+		if (number ==="" || regExp.test(number)) {
 				cloneisValid[Index] = true
 				setCardNumberInputValid(cloneisValid)
-				clone[Index] = valueNumber	
+				clone[Index] = number	
 				setCardNumberInputs(clone)		
-			}
+
 		}
-		else if (number.length == 0 && number ==""){
-			clone[Index] = number	
-			setCardNumberInputs(clone)	
-		}
-		else {
-			setCardNumberInputs(clone)
-			cloneisValid[Index] = false
-			setCardNumberInputValid(cloneisValid)
-		}
+
 		if (valueNumber.toString().length == '4' && Index!=3){
 			cardNumberRefArray[Index+1].current.focus()
 		}
@@ -94,17 +83,14 @@ export function AtmForm() {
 	}
 
 	const changeExpiryMonth = (event) =>{
+		const regExp = /^\d+$/
 		const value = event.target.value
 
 		const numberValue = Number(value)
 
-		if((value=="" || value ==" ") && (value.length == 1 || value.length == 0)){
-			setExpiryMthValue("")
-			setExpiryMonthValid(false)
-		}
-		else if (numberValue || value == 0){
-			if(numberValue <=12 && !isNaN(value) ){
-				setExpiryMthValue(numberValue)
+		if (value ==="" || regExp.test(value)) {
+			if(numberValue <=12){
+				setExpiryMthValue(value)
 				setExpiryMonthValid(false)
 			}
 			else{
@@ -114,29 +100,23 @@ export function AtmForm() {
 	}
 
 	const changeExpiryYear = () => {
+		const regExp = /^\d+$/
 		const value = event.target.value
-		const valueNumber = Number(value)
 
-		if((value=="" || value==" ") && (value.length ==0 || value.length == 1)){
-			set_Exp_Yr_Value("")
-		}
-		else if ((value.length > 0 && valueNumber ) || value == 0){
-			set_Exp_Yr_Value(valueNumber)
+		if (value ==="" || regExp.test(value)) {
+			set_Exp_Yr_Value(value)
 		}
 	}
 
 	const changeCvc = (event) =>{
 		setCvcFlip(true)
+		const regExp = /^\d+$/;
 		const value = event.target.value
-		const valueNumber = Number(value)
-		if (value.length > 0 && !isNaN(value) && valueNumber) {
-			setCvc(valueNumber)
+		if (value ==="" || regExp.test(value)) {
+			setCvc(value)
 			
 		}
-		if(value=="" && value.length ==0){
-			setCvc("")
-			
-		}
+
 	}
 	const flipBack = ()=>{
 		setCvcFlip(false)
