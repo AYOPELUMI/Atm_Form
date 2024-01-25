@@ -87,7 +87,7 @@ export function AtmForm() {
 		if (valueNumber.toString().length == '4' && Index!=3){
 			cardNumberRefArray[Index+1].current.focus()
 		}
-		
+
 		if(number.length == 0 && Index!=0) {
 			cardNumberRefArray[Index-1].current.focus()
 		}
@@ -131,12 +131,15 @@ export function AtmForm() {
 		const valueNumber = Number(value)
 		if (value.length > 0 && !isNaN(value) && valueNumber) {
 			setCvc(valueNumber)
-			setCvcFlip(false)
+			
 		}
 		if(value=="" && value.length ==0){
 			setCvc("")
-			setCvcFlip(false)
+			
 		}
+	}
+	const flipBack = ()=>{
+		setCvcFlip(false)
 	}
 	const onSubmit = () => {
 		event.preventDefault()
@@ -173,6 +176,7 @@ export function AtmForm() {
 						expiryMonthValid={expiryMonthValid}
 						cvc = {cvc}
 						changeCvc= {changeCvc}
+						onBlur ={flipBack}
 					/> 
 				</div>
 			</aside>

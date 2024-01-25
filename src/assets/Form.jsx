@@ -13,7 +13,8 @@ export function Form(props){
 		changeExpiryYear,
 		changeExpiryMonth,
 		cvc,
-		changeCvc
+		changeCvc,
+		onBlur
 
 	} = props;
 
@@ -51,7 +52,7 @@ export function Form(props){
 					<h4>
 						CVC
 					</h4>
-					<Input type="text" placeholder="e.g 123" className="cvcclassName atmFormInput" maxLength="3" value={cvc} onChange={changeCvc} inputMode="numeric" />
+					<Input type="text" placeholder="e.g 123" className="cvcclassName atmFormInput" maxLength="3" value={cvc} onChange={changeCvc} inputMode="numeric" onBlur={onBlur} />
 				</label>
 			</div>
 			<button className="submit" type="submit">Confirm</button>
