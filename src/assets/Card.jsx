@@ -26,7 +26,7 @@ export function Card(props) {
 	return (
 		<div className ="containerAtm">
 			<div className="atmContainer" style={{
-						transform: cvcFlip  ? "rotateY(-180deg)" : undefined
+						transform: cvcFlip == true ? "rotateY(-180deg)" : undefined
 					}}>
 					<div className="atmFrontSide atm">
 						<div>

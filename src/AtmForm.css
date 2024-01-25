@@ -173,6 +173,7 @@
 		font-size: 16px;
 		font-weight: 600;
 		width: 100%;
+		letter-spacing: 2px;
 	}
 	.atmFormInput{
 		margin-top: 12px;
@@ -187,6 +188,7 @@
 		background: #fff;
 		transition: border 0.4s ease; 
 		color: #000;
+		letter-spacing: 1px;
 	}
 	.atmFormInput:focus{
 		border: 2px solid #7d7979;

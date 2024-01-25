@@ -63,7 +63,10 @@ export function AtmForm() {
 		const clone = Array.from(cardNumberInputs)
 		const cloneisValid = Array.from(cardNumberInputValid)
 		const valueNumber = Number(number)
-	
+		
+		console.log({number})
+		console.log(number.length)
+
 		if (number.length > 0 && valueNumber){
 			if (!isNaN(number)) {
 				cloneisValid[Index] = true
@@ -71,9 +74,12 @@ export function AtmForm() {
 				clone[Index] = valueNumber	
 				setCardNumberInputs(clone)		
 			}
-
 		}
-		else{
+		else if (number.length == 0 && number ==""){
+			clone[Index] = number	
+			setCardNumberInputs(clone)	
+		}
+		else {
 			setCardNumberInputs(clone)
 			cloneisValid[Index] = false
 			setCardNumberInputValid(cloneisValid)
@@ -81,58 +87,61 @@ export function AtmForm() {
 		if (valueNumber.toString().length == '4' && Index!=3){
 			cardNumberRefArray[Index+1].current.focus()
 		}
+		
+		if(number.length == 0 && Index!=0) {
+			cardNumberRefArray[Index-1].current.focus()
+		}
 	}
 
+	const changeExpiryMonth = (event) =>{
+		const value = event.target.value
 
-const changeExpiryMonth = (event) =>{
-	const value = event.target.value
+		const numberValue = Number(value)
 
-	const numberValue = Number(value)
-
-	if((value=="" || value ==" ") && (value.length == 1 || value.length == 0)){
-		setExpiryMthValue("")
-		setExpiryMonthValid(false)
-	}
-	else if (numberValue || value == 0){
-		if(numberValue <=12 && !isNaN(value) ){
-			setExpiryMthValue(numberValue)
+		if((value=="" || value ==" ") && (value.length == 1 || value.length == 0)){
+			setExpiryMthValue("")
 			setExpiryMonthValid(false)
 		}
-		else{
-			setExpiryMonthValid(true)
+		else if (numberValue || value == 0){
+			if(numberValue <=12 && !isNaN(value) ){
+				setExpiryMthValue(numberValue)
+				setExpiryMonthValid(false)
+			}
+			else{
+				setExpiryMonthValid(true)
+			}
 		}
 	}
-}
 
-const changeExpiryYear = () => {
-	const value = event.target.value
-	const valueNumber = Number(value)
+	const changeExpiryYear = () => {
+		const value = event.target.value
+		const valueNumber = Number(value)
 
-	if((value=="" || value==" ") && (value.length ==0 || value.length == 1)){
-		set_Exp_Yr_Value("")
+		if((value=="" || value==" ") && (value.length ==0 || value.length == 1)){
+			set_Exp_Yr_Value("")
+		}
+		else if ((value.length > 0 && valueNumber ) || value == 0){
+			set_Exp_Yr_Value(valueNumber)
+		}
 	}
-	else if ((value.length > 0 && valueNumber ) || value == 0){
-		set_Exp_Yr_Value(valueNumber)
-	}
-}
 
-const changeCvc = (event) =>{
-	setCvcFlip(true)
-	const value = event.target.value
-	const valueNumber = Number(value)
-	if (value.length > 0 && !isNaN(value) && valueNumber) {
-		 setCvc(valueNumber)
-		 setCvcFlip(false)
+	const changeCvc = (event) =>{
+		setCvcFlip(true)
+		const value = event.target.value
+		const valueNumber = Number(value)
+		if (value.length > 0 && !isNaN(value) && valueNumber) {
+			setCvc(valueNumber)
+			setCvcFlip(false)
+		}
+		if(value=="" && value.length ==0){
+			setCvc("")
+			setCvcFlip(false)
+		}
 	}
-	if(value=="" && value.length ==0){
-		setCvc("")
-		setCvcFlip(false)
+	const onSubmit = () => {
+		event.preventDefault()
+		toast.success("atm details updated successfully")
 	}
-}
-const onSubmit = () => {
-	event.preventDefault()
-	toast.success("atm details updated successfully")
-}
 	
 	return (
 		<div className='body'>
