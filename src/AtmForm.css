@@ -382,10 +382,12 @@
 	}
 	.rightSide{
 		flex: 0;
+		position: relative;
 	}
 	.container{
 		top: 0;
 		padding-right: 0;
+		position: absolute;
 	}
 	.atmBackside{
 		 transform: rotateY(180deg);
