@@ -383,11 +383,13 @@
 	.rightSide{
 		flex: 0;
 		position: relative;
+		min-height: 100vw;
 	}
 	.container{
 		top: 0;
 		padding-right: 0;
 		position: absolute;
+		height: inherit;
 	}
 	.atmBackside{
 		 transform: rotateY(180deg);
